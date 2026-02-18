@@ -41,7 +41,7 @@ final class ImageManageGDResource extends ImageManageResource
         $this->simpleImage->rotate($degree);
     }
 
-    public function maxResize(int $maxWidth = null, int $maxHeight = null): void
+    public function maxResize(?int $maxWidth = null, ?int $maxHeight = null): void
     {
         $imgWidth = $this->simpleImage->getWidth();
         $imgHeight = $this->simpleImage->getHeight();
@@ -82,6 +82,7 @@ final class ImageManageGDResource extends ImageManageResource
      * @throws DeleteFileException
      * @throws DirectoryNotFoundException
      * @throws FileException
+     * @throws Exception
      */
     public function save(?string $myTarget = null, ?string $newName = null, ?string $newExtension = null): void
     {

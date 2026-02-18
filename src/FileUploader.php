@@ -4,8 +4,12 @@ namespace Optimal\FileManaging;
 
 use Exception;
 use ImagickException;
+use Optimal\FileManaging\Exception\CreateDirectoryException;
+use Optimal\FileManaging\Exception\DeleteFileException;
 use Optimal\FileManaging\Exception\DirectoryException;
 use Optimal\FileManaging\Exception\DirectoryNotFoundException;
+use Optimal\FileManaging\Exception\FileException;
+use Optimal\FileManaging\Exception\FileNotFoundException;
 use Optimal\FileManaging\Exception\UploadFileException;
 use Optimal\FileManaging\Resources\UploadedFilesResource;
 use Optimal\FileManaging\Utils\FilesTypes;
@@ -209,11 +213,8 @@ class FileUploader
     /**
      * @throws DirectoryException
      * @throws DirectoryNotFoundException
-     * @throws Exception\CreateDirectoryException
-     * @throws Exception\DeleteFileException
-     * @throws Exception\FileException
-     * @throws Exception\FileNotFoundException
-     * @throws ImagickException
+     * @throws CreateDirectoryException
+     * @throws DeleteFileException
      */
     public function uploadFile(string $inputName, int $index, ?string $newFileName = null, bool $overwrite = true, ?callable $beforeUploadCallback = null, ?callable $afterUploadCallback = null): void
     {

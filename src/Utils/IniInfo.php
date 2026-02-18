@@ -4,11 +4,11 @@ namespace Optimal\FileManaging\Utils;
 
 class IniInfo
 {
-    private static ?string $UploadMaxFileSize;
+    private static ?string $UploadMaxFileSize = null;
 
-    private static ?string $PostMaxSize;
+    private static ?string $PostMaxSize  = null;
 
-    private static ?string $maxFileUploads;
+    private static ?string $maxFileUploads = null;
 
     private static function load(): void
     {

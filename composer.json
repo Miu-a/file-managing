@@ -8,7 +8,7 @@
     "resize"
   ],
   "require": {
-    "php": ">=8.4",
+    "php": ">=8.2",
     "claviska/simpleimage": "^4.4"
   },
   "authors": [
