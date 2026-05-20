@@ -11,7 +11,7 @@
     "php": "^8.2",
     "ext-gd": "*",
     "claviska/simpleimage": "^4.4",
-    "ext-imagick": "Required to use the Imagick image manager resource"
+    "ext-imagick": "*"
   },
   "suggest": {
   },
