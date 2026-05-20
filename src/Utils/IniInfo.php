@@ -4,10 +4,9 @@ namespace Optimal\FileManaging\Utils;
 
 class IniInfo
 {
+
     private static ?string $UploadMaxFileSize = null;
-
-    private static ?string $PostMaxSize  = null;
-
+    private static ?string $PostMaxSize = null;
     private static ?string $maxFileUploads = null;
 
     private static function load(): void
@@ -21,29 +20,29 @@ class IniInfo
 
     public static function toBytes(string $size): int
     {
+
         $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
         switch (substr($size, -1)) {
             case 'K':
             case 'k':
                 $suffix = "KB";
-                $number = (int)substr($size, 0, -1);
+                $number = (int) substr($size, 0, -1);
                 break;
             case 'M':
             case 'm':
                 $suffix = "MB";
-                $number = (int)substr($size, 0, -1);
+                $number = (int) substr($size, 0, -1);
                 break;
             case 'G':
             case 'g':
                 $suffix = "GB";
-                $number = (int)substr($size, 0, -1);
+                $number = (int) substr($size, 0, -1);
                 break;
             default:
                 $suffix = strtoupper(substr($size, -2));
-                $number = (int)substr($size, 0, -2);
+                $number = (int) substr($size, 0, -2);
 
-                //B or no suffix
                 if (is_numeric($suffix[0])) {
                     return (int) preg_replace('/\D/', '', $size);
                 }
@@ -59,13 +58,13 @@ class IniInfo
         return $number * (1024 ** $exponent);
     }
 
-    public static function getPostMaxSize(bool $toBytes = true): int|string|null
+    public static function getPostMaxSize(bool $toBytes = true): int|string
     {
         self::load();
         return $toBytes ? self::toBytes(self::$PostMaxSize) : self::$PostMaxSize;
     }
 
-    public static function getMaxFileSize(bool $toBytes = true): int|string|null
+    public static function getMaxFileSize(bool $toBytes = true): int|string
     {
         self::load();
         return $toBytes ? self::toBytes(self::$UploadMaxFileSize) : self::$UploadMaxFileSize;
@@ -74,6 +73,7 @@ class IniInfo
     public static function getMaxFilesCount(): int
     {
         self::load();
-        return (int)self::$maxFileUploads;
+        return (int) self::$maxFileUploads;
     }
+
 }

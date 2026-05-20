@@ -7,14 +7,13 @@ use Exception;
 use Optimal\FileManaging\Exception\DeleteFileException;
 use Optimal\FileManaging\Exception\DirectoryNotFoundException;
 use Optimal\FileManaging\Exception\FileException;
+use Optimal\FileManaging\Exception\GDException;
 use Optimal\FileManaging\FileCommander;
 
 final class ImageManageGDResource extends ImageManageResource
 {
 
     /**
-     * @param BitmapImageFileResource $image
-     * @param FileCommander $commander
      * @throws Exception
      */
     public function __construct(BitmapImageFileResource $image, FileCommander $commander)
@@ -34,6 +33,7 @@ final class ImageManageGDResource extends ImageManageResource
     }
 
     /**
+     * @throws GDException
      * @throws Exception
      */
     public function rotate(int $degree): void
@@ -47,11 +47,14 @@ final class ImageManageGDResource extends ImageManageResource
         $imgHeight = $this->simpleImage->getHeight();
 
         if ($imgWidth > $maxWidth || $imgHeight > $maxHeight) {
+
             if ($imgWidth >= $imgHeight) {
                 $this->simpleImage->resize($maxWidth);
-            } else {
+            }
+            else {
                 $this->simpleImage->resize(null, $maxWidth);
             }
+
         }
 
         $this->image->setWidth($this->simpleImage->getWidth());
@@ -82,7 +85,6 @@ final class ImageManageGDResource extends ImageManageResource
      * @throws DeleteFileException
      * @throws DirectoryNotFoundException
      * @throws FileException
-     * @throws Exception
      */
     public function save(?string $myTarget = null, ?string $newName = null, ?string $newExtension = null): void
     {

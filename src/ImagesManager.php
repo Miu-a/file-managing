@@ -15,10 +15,11 @@ use RuntimeException;
 
 class ImagesManager
 {
-    const string RESOURCE_TYPE_GD      = "gd";
-    const string RESOURCE_TYPE_IMAGICK = "imagick";
-    private FileCommander $commander;
 
+    public const RESOURCE_TYPE_GD      = "gd";
+    public const RESOURCE_TYPE_IMAGICK = "imagick";
+
+    private FileCommander $commander;
 
     public function __construct()
     {
@@ -57,9 +58,8 @@ class ImagesManager
         }
 
         if (is_null($imgExtension)) {
-            $pathInfo = pathinfo("{$this->commander->getAbsolutePath()}/{$imgName}");
-            $imgExtension = $pathInfo['extension'];
-            $imgName = $pathInfo['filename'];
+            $imgExtension = pathinfo($this->commander->getAbsolutePath() . "/" . $imgName, PATHINFO_EXTENSION);
+            $imgName = pathinfo($this->commander->getAbsolutePath() . "/" . $imgName, PATHINFO_FILENAME);
         }
 
         if ($this->commander->fileExists($imgName, $imgExtension)) {
@@ -84,4 +84,5 @@ class ImagesManager
         throw new FileNotFoundException("File: " . $imgName . "." . $imgExtension . " not found in " . $this->commander->getRelativePath());
 
     }
+
 }

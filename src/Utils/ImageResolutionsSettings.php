@@ -4,20 +4,25 @@ namespace Optimal\FileManaging\Utils;
 
 class ImageResolutionsSettings
 {
+
     private array $resolutions = [];
 
-    public function addResolutionSettingsByObject(ImageResolutionSettings $settings):void
+    public function addResolutionSettingsByObject(ImageResolutionSettings $settings): void
     {
         $this->resolutions[] = $settings;
     }
 
-    public function addResolutionSettings($width, $height = null):void
+    public function addResolutionSettings(?int $width, ?int $height = null): void
     {
         $this->resolutions[] = new ImageResolutionSettings($width, $height);
     }
 
-    public function getResolutionsSettings():array
+    /**
+     * @return ImageResolutionSettings[]
+     */
+    public function getResolutionsSettings(): array
     {
         return $this->resolutions;
     }
+
 }

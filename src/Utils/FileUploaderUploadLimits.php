@@ -9,6 +9,7 @@ class FileUploaderUploadLimits
     private int $iniMaxCount;
     private int $iniMaxFileSize;
     private int $iniMaxAllFilesSize;
+
     private int $maxCount;
     private int $maxFileSize;
     private ?string $maxFileSizeStr = null;
@@ -25,28 +26,14 @@ class FileUploaderUploadLimits
     }
 
     /**
-     * @param int|null $maxCount
-     * @param string|null $maxFileSizeStr
-     * @param string|null $maxAllFilesSizeStr
      * @throws IniException
      */
-    protected function checkIni(?int $maxCount = null, ?string $maxFileSizeStr = null, ?string $maxAllFilesSizeStr = null):void
+    protected function checkIni(?int $maxCount = null, ?string $maxFileSizeStr = null, ?string $maxAllFilesSizeStr = null): void
     {
-        if (!$maxFileSizeStr) {
-            $maxFileSizeBytes = $this->maxFileSize;
-        }
-        else {
-            $maxFileSizeBytes = IniInfo::toBytes($maxFileSizeStr);
-        }
+        $maxFileSizeBytes = $maxFileSizeStr ? IniInfo::toBytes($maxFileSizeStr) : $this->maxFileSize;
+        $maxAllFilesSizeBytes = $maxAllFilesSizeStr ? IniInfo::toBytes($maxAllFilesSizeStr) : $this->maxAllFilesSize;
 
-        if (!$maxAllFilesSizeStr) {
-            $maxAllFilesSizeBytes = $this->maxAllFilesSize;
-        }
-        else {
-            $maxAllFilesSizeBytes = IniInfo::toBytes($maxAllFilesSizeStr);
-        }
-
-        if ($maxCount > $this->iniMaxCount) {
+        if ($maxCount !== null && $maxCount > $this->iniMaxCount) {
             throw new IniException("Chosen max count is greater than is allowed in php ini (" . $this->maxCount . ")");
         }
 
@@ -57,24 +44,21 @@ class FileUploaderUploadLimits
         if ($maxAllFilesSizeBytes > $this->iniMaxAllFilesSize) {
             throw new IniException("Chosen max post size is greater than is allowed in php ini (" . IniInfo::getPostMaxSize(false) . ")");
         }
-
     }
 
     /**
-     * @param int $count
      * @throws IniException
      */
-    public function setMaxCount(int $count):void
+    public function setMaxCount(int $count): void
     {
         $this->checkIni($count);
         $this->maxCount = $count;
     }
 
     /**
-     * @param string $size
      * @throws IniException
      */
-    public function setMaxFileSize(string $size):void
+    public function setMaxFileSize(string $size): void
     {
         $this->checkIni(null, $size);
         $this->maxFileSize = IniInfo::toBytes($size);
@@ -82,70 +66,49 @@ class FileUploaderUploadLimits
     }
 
     /**
-     * @param string $size
      * @throws IniException
      */
-    public function setMaxPostSize(string $size):void
+    public function setMaxPostSize(string $size): void
     {
         $this->checkIni(null, null, $size);
         $this->maxAllFilesSize = IniInfo::toBytes($size);
         $this->maxAllFilesSizeStr = $size;
     }
 
-    /**
-     * @param array $extensions
-     */
-    public function setAllowedExtensions(array $extensions):void
+    public function setAllowedExtensions(array $extensions): void
     {
         $this->allowedExtensions = $extensions;
     }
 
-    /**
-     * @param array $extensions
-     */
-    public function addAllowedExtensions(array $extensions):void
+    public function addAllowedExtensions(array $extensions): void
     {
         $intersection = array_intersect($this->allowedExtensions, $extensions);
         $this->allowedExtensions = array_merge($this->allowedExtensions, $intersection);
     }
 
-    /**
-     * @return int
-     */
     public function getMaxFilesCount(): int
     {
         return $this->maxCount;
     }
 
-    /**
-     * @return int
-     */
     public function getMaxFileSize(): int
     {
         return $this->maxFileSize;
     }
 
-    /**
-     * @return int
-     */
     public function getMaxPostSize(): int
     {
         return $this->maxAllFilesSize;
     }
 
-    /**
-     * @return array
-     */
     public function getAllowedExtensions(): array
     {
         return $this->allowedExtensions;
     }
 
-    /**
-     * @return array
-     */
-    public function getDisAllowedExtensions():array
+    public function getDisAllowedExtensions(): array
     {
         return FilesTypes::DISALLOWED;
     }
+
 }

@@ -4,11 +4,12 @@ namespace Optimal\FileManaging\Utils;
 
 class ImageCropSettings
 {
+
     private ?string $ratio = null;
     private int $minWidth;
     private int $maxWidth;
     private int $minHeight;
-    private mixed $maxHeight;
+    private int $maxHeight;
     private bool $resizable;
 
     private int $x1;
@@ -27,14 +28,14 @@ class ImageCropSettings
         $this->minWidth = 0;
     }
 
-    public function getRatio(): ?float
+    public function getRatio(): ?string
     {
         return $this->ratio;
     }
 
-    public function setRatio(float $ratioW, float $ratioH): self
+    public function setRatio(float $ratioW, float $ratioH): static
     {
-        $this->ratio = "{$ratioW}:{$ratioH}";
+        $this->ratio = $ratioW . ":" . $ratioH;
         return $this;
     }
 
@@ -43,7 +44,7 @@ class ImageCropSettings
         return $this->minWidth;
     }
 
-    public function setMinWidth(int $minWidth): self
+    public function setMinWidth(int $minWidth): static
     {
         $this->minWidth = $minWidth;
         return $this;
@@ -54,7 +55,7 @@ class ImageCropSettings
         return $this->maxWidth;
     }
 
-    public function setMaxWidth(int $maxWidth): self
+    public function setMaxWidth(int $maxWidth): static
     {
         $this->maxWidth = $maxWidth;
         return $this;
@@ -65,18 +66,18 @@ class ImageCropSettings
         return $this->minHeight;
     }
 
-    public function setMinHeight(int $minHeight): self
+    public function setMinHeight(int $minHeight): static
     {
         $this->minHeight = $minHeight;
         return $this;
     }
 
-    public function getMaxHeight(): self
+    public function getMaxHeight(): int
     {
         return $this->maxHeight;
     }
 
-    public function setMaxHeight($maxHeight): self
+    public function setMaxHeight(int $maxHeight): static
     {
         $this->maxHeight = $maxHeight;
         return $this;
@@ -87,7 +88,7 @@ class ImageCropSettings
         return $this->resizable;
     }
 
-    public function setResizable(bool $resizable): self
+    public function setResizable(bool $resizable): static
     {
         $this->resizable = $resizable;
         return $this;
@@ -98,7 +99,7 @@ class ImageCropSettings
         return $this->x1;
     }
 
-    public function setX1(int $x1): self
+    public function setX1(int $x1): static
     {
         $this->x1 = $x1;
         return $this;
@@ -109,7 +110,7 @@ class ImageCropSettings
         return $this->y1;
     }
 
-    public function setY1(int $y1): self
+    public function setY1(int $y1): static
     {
         $this->y1 = $y1;
         return $this;
@@ -120,7 +121,7 @@ class ImageCropSettings
         return $this->x2;
     }
 
-    public function setX2(int $x2): self
+    public function setX2(int $x2): static
     {
         $this->x2 = $x2;
         return $this;
@@ -131,9 +132,10 @@ class ImageCropSettings
         return $this->y2;
     }
 
-    public function setY2(int $y2): self
+    public function setY2(int $y2): static
     {
         $this->y2 = $y2;
         return $this;
     }
+
 }
