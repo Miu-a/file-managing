@@ -10,14 +10,14 @@ class BitmapImageFileResource extends AbstractImageFileResource
     protected int $width;
     protected int $height;
 
-    protected function setFileInfo(): void
+    protected function setFileInfo():void
     {
         parent::setFileInfo();
 
-        [
-            $this->width,
-            $this->height
-        ] = getimagesize($this->path . "/" . $this->name . "." . $this->extension);
+        [$width, $height] = getimagesize($this->path . "/" . $this->name . "." . $this->extension);
+        $this->width = $width;
+        $this->height = $height;
+
     }
 
     public function getWidth(): int
@@ -25,7 +25,7 @@ class BitmapImageFileResource extends AbstractImageFileResource
         return $this->width;
     }
 
-    public function setWidth(int $width): self
+    public function setWidth(int $width): static
     {
         $this->width = $width;
         return $this;
@@ -36,7 +36,7 @@ class BitmapImageFileResource extends AbstractImageFileResource
         return $this->height;
     }
 
-    public function setHeight(int $height): self
+    public function setHeight(int $height): static
     {
         $this->height = $height;
         return $this;
@@ -64,9 +64,13 @@ class BitmapImageFileResource extends AbstractImageFileResource
 
     public function parseString(string $string): string
     {
-        return strtr($string, [
-            '{width}'       => $this->width,
-            '{height}'      => $this->height,
-        ]);
+
+        $string = parent::parseString($string);
+
+        $string = str_replace("{width}", (string) $this->width, $string);
+        $string = str_replace("{height}", (string) $this->height, $string);
+
+        return $string;
     }
+
 }

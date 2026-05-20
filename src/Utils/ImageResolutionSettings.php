@@ -2,13 +2,16 @@
 
 namespace Optimal\FileManaging\Utils;
 
+use Optimal\FileManaging\Resources\ImageManageResource;
+
 class ImageResolutionSettings
 {
-    const string EXTENSION_DEFAULT = "default";
+    const EXTENSION_DEFAULT = "default";
+
     private ?int $width;
     private ?int $height;
 
-    public function __construct($width, $height = null)
+    public function __construct(?int $width, ?int $height = null)
     {
         $this->width = $width;
         $this->height = $height;
@@ -33,4 +36,5 @@ class ImageResolutionSettings
     {
         $this->height = $height;
     }
+
 }

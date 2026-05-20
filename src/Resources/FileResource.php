@@ -2,10 +2,11 @@
 
 namespace Optimal\FileManaging\Resources;
 
-use RuntimeException;
+use Exception;
 
 class FileResource extends AbstractFileResource
 {
+
     protected BitmapImageFileResource $previewImage;
 
     public function getPreviewImage(): AbstractFileResource
@@ -13,10 +14,13 @@ class FileResource extends AbstractFileResource
         return $this->previewImage;
     }
 
+    /**
+     * @throws Exception
+     */
     public function setPreviewImage(AbstractFileResource $previewImage): void
     {
         if (!$previewImage instanceof BitmapImageFileResource) {
-            throw new RuntimeException('Wrong object type, ImageFileResource is required');
+            throw new Exception('Wrong object type, ImageFileResource is required');
         }
         $this->previewImage = $previewImage;
     }

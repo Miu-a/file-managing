@@ -1,0 +1,20 @@
+# Composer
+/vendor/
+composer.lock
+
+# Test artifacts
+/test/sandbox/
+
+# IDE / editor
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

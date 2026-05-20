@@ -11,11 +11,8 @@ use Optimal\FileManaging\FileCommander;
 abstract class ImageManageResource
 {
     protected BitmapImageFileResource $image;
-
     protected SimpleImage $simpleImage;
-
     protected FileCommander $commander;
-
 
     public function __construct(BitmapImageFileResource $image, FileCommander $commander)
     {
@@ -50,12 +47,6 @@ abstract class ImageManageResource
         $this->simpleImage->autoOrient();
     }
 
-    /**
-     * @param int $x
-     * @param int $y
-     * @param int $width
-     * @param int $height
-     */
     abstract public function cropImage(int $x, int $y, int $width, int $height): void;
 
     abstract public function maxResize(?int $maxWidth = null, ?int $maxHeight = null): void;

@@ -8,8 +8,12 @@
     "resize"
   ],
   "require": {
-    "php": ">=8.4",
-    "claviska/simpleimage": "^4.4"
+    "php": "^8.2",
+    "ext-gd": "*",
+    "claviska/simpleimage": "^4.4",
+    "ext-imagick": "Required to use the Imagick image manager resource"
+  },
+  "suggest": {
   },
   "authors": [
     {
