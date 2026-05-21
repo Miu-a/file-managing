@@ -10,10 +10,10 @@
   "require": {
     "php": "^8.2",
     "ext-gd": "*",
-    "claviska/simpleimage": "^4.4",
-    "ext-imagick": "*"
+    "claviska/simpleimage": "^4.4"
   },
   "suggest": {
+    "ext-imagick": "Required only if you use ImagesManager::RESOURCE_TYPE_IMAGICK (Imagick backend). The default GD backend does not need it."
   },
   "authors": [
     {
